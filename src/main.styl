@@ -1,0 +1,107 @@
+$boldFont = 'Arial Black', sans-serif
+
+html
+  @media screen and (min-width: 1440px)
+    font-size 16px
+  @media screen and (max-width: 1440px)
+    font-size 14px
+  @media screen and (max-width: 1024px)
+    font-size 13px
+
+  font-family Arial, sans-serif
+  -webkit-font-smoothing antialiased
+  -moz-osx-font-smoothing grayscale
+  background-color #FAF45B
+  color #333
+  *
+    box-sizing border-box
+  a
+    color #333
+    text-decoration none
+    &:hover
+      text-decoration underline
+
+body
+  padding-bottom (200/16)rem
+
+header
+  position relative
+  height (110/16)rem
+  background-color #000
+  padding (23/16)rem
+  @media screen and (max-width: 768px)
+    height (142/16)rem
+  .logo-wrapper
+    display flex
+    align-items flex-end
+    .logo
+      display block
+      width (248/16)rem
+      img
+        display block
+    .site-title
+      margin-left (10/16)rem
+      font-family $boldFont
+      h1
+        color #BE1818
+        font-size (14/16)rem
+        margin 0
+      .slogan
+        color #FFF
+        font-size (12/16)rem
+        margin 0
+  .dimension-switch
+    position absolute
+    right (30/16)rem
+    bottom 0
+    a
+      float left
+      height (40/16)rem
+      line-height (40/16)rem
+      border-radius (5/16)rem (5/16)rem 0 0
+      color #FAF45B
+      font-size (20/16)rem
+      padding 0 (15/16)rem
+      text-decoration none
+      &.active
+        background-color #FAF45B
+        color #000
+        font-family $boldFont
+
+.years, .breaks, .tournaments
+  display flex
+  flex-wrap wrap
+  visibility hidden
+  opacity 0
+  transition opacity .3s
+  &.shown
+    visibility visible
+    opacity 1
+.breaks, .tournaments
+  display none
+
+.baler
+  width (420/16)rem
+  margin (50/16)rem 0 0 (50/16)rem
+  h3
+    font-family $boldFont
+    font-size (36/16)rem
+    margin 0 0 (20/16)rem
+    span
+      font-size (20/16)rem
+      margin-left .5rem
+  h4
+    font-family $boldFont
+    font-size (22/16)rem
+    margin (20/16)rem 0 1rem
+    span
+      display block
+      font-size 1rem
+  ul
+    margin 0
+    padding 0
+    li
+      list-style none
+      line-height 1.5
+      strong
+        font-family $boldFont
