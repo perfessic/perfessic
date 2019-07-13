@@ -56,21 +56,23 @@ for (let i = balers.length-1; i >= 0; i--) {
   const yearEl = (balers[i].childNodes[1] as Element)
   const year = yearEl.textContent
   yearEl.id = year
-  let lis = balers[i].childNodes[3].childNodes
+  let lis = (balers[i].childNodes[3] as Element).children
+
+  const breaksEl = document.createElement('span')
+  breaksEl.appendChild(document.createTextNode(lis.length + (lis.length === 1 ? ' Break' : ' Breaks')))
+  yearEl.appendChild(breaksEl)
 
   for (let j = lis.length-1; j >= 0; j--) {
-    if ((lis[j] as any).tagName === 'LI') {
-      ++index
-      // init two breaks map
-      const player = (lis[j].childNodes[1] as any).textContent
-      const tour = (lis[j].childNodes[3] as any).textContent
-      insertTour(year, index, player, tour)
-      insertPlayer(year, index, player, tour)
-      
-      let indexEl = document.createElement('strong')
-      indexEl.appendChild(document.createTextNode(index + '.'))
-      lis[j].insertBefore(indexEl, lis[j].childNodes[0])
-    }
+    ++index
+    // init two breaks map
+    const player = (lis[j].childNodes[1] as any).textContent
+    const tour = (lis[j].childNodes[3] as any).textContent
+    insertTour(year, index, player, tour)
+    insertPlayer(year, index, player, tour)
+    
+    let indexEl = document.createElement('strong')
+    indexEl.appendChild(document.createTextNode(index + '.'))
+    lis[j].insertBefore(indexEl, lis[j].childNodes[0])
   }
 }
 
