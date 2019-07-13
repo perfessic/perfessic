@@ -4,7 +4,7 @@ node_js:
 
 script:
   - yarn build
-  - echo 'www.perfessic.com' > ./dist/CNAME
+  - echo 'perfessic.com' > ./dist/CNAME
 
 deploy:
   provider: pages
