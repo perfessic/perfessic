@@ -133,7 +133,7 @@ function fillTournament(balerEl: HTMLElement, tourName: string, players: Player[
     liEl.appendChild(yearEl)
 
     if (li.qualifier) {
-      liEl.appendChild(document.createTextNode(' Qualifier'))
+      liEl.appendChild(document.createTextNode(' Qualifiers'))
     }
 
     ulEl.appendChild(liEl)
