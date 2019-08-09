@@ -1,25 +1,28 @@
 interface Tour {
   index: number,
   year: string,
-  tournament: string
+  tournament: string,
+  v: string
 }
 
 interface Player {
   index: number,
   year: string,
   player: string,
-  qualifier: boolean
+  qualifier: boolean,
+  v: string
 }
 
 function encodeName(n: string): string {
   return n.replace(' Qualifiers', '').toLowerCase().replace(/\s/g, '_')
 }
 
-function insertTour(year: string, index: number, player, tour: string) {
+function insertTour(year: string, index: number, player, tour: string, v: string) {
   const p = {
     index: index,
     year: year,
-    tournament: tour
+    tournament: tour,
+    v: v
   }
   if (playerBreaks[player] === undefined) {
     playerBreaks[player] = [p]
@@ -28,12 +31,13 @@ function insertTour(year: string, index: number, player, tour: string) {
   }
 }
 
-function insertPlayer(year: string, index: number, player, tour: string) {
+function insertPlayer(year: string, index: number, player, tour: string, v: string) {
   const t = {
     index: index,
     year: year,
     player: player,
-    qualifier: false
+    qualifier: false,
+    v: v
   }
   const tn = tour.replace(' Qualifiers', '')
   if (tn !== tour) {
@@ -67,13 +71,26 @@ for (let i = balers.length-1; i >= 0; i--) {
     // init two breaks map
     const player = (lis[j].childNodes[1] as any).textContent
     const tour = (lis[j].childNodes[3] as any).textContent
-    insertTour(year, index, player, tour)
-    insertPlayer(year, index, player, tour)
+    const v = (lis[j] as HTMLElement).getAttribute('v')
+    insertTour(year, index, player, tour, v)
+    insertPlayer(year, index, player, tour, v)
     
-    let indexEl = document.createElement('strong')
-    indexEl.appendChild(document.createTextNode(index + '.'))
-    lis[j].insertBefore(indexEl, lis[j].childNodes[0])
+    settleNo(lis[j], index, v)
   }
+}
+
+function settleNo(lie, index, v) {
+  let indexEl: HTMLElement
+  if (v) {
+    indexEl = document.createElement('a')
+    indexEl.className = 'no';
+    indexEl.setAttribute('href', `https://youtu.be/${v}`)
+    indexEl.setAttribute('target', '_blank')
+  } else {
+    indexEl = document.createElement('strong')
+  }
+  indexEl.appendChild(document.createTextNode(index + '.'))
+  lie.insertBefore(indexEl, lie.childNodes[0])
 }
 
 function fillBreaksPlayer(balerEl: HTMLElement, playerName: string, tours: Tour[]) {
@@ -86,9 +103,10 @@ function fillBreaksPlayer(balerEl: HTMLElement, playerName: string, tours: Tour[
   for (let j = 0; j < tours.length; j++) {
     let li = tours[j]
     let liEl = document.createElement('li')
-    let indexEl = document.createElement('strong')
-    indexEl.appendChild(document.createTextNode(li.index + '.'))
-    liEl.appendChild(indexEl)
+    if (li.v) {
+      liEl.setAttribute('v', li.v)
+    }
+    settleNo(liEl, li.index, li.v)
 
     liEl.appendChild(document.createTextNode(' '))
 
@@ -114,9 +132,10 @@ function fillTournament(balerEl: HTMLElement, tourName: string, players: Player[
   for (let j = 0; j < players.length; j++) {
     let li = players[j]
     let liEl = document.createElement('li')
-    let indexEl = document.createElement('strong')
-    indexEl.appendChild(document.createTextNode(li.index + '.'))
-    liEl.appendChild(indexEl)
+    if (li.v) {
+      liEl.setAttribute('v', li.v)
+    }
+    settleNo(liEl, li.index, li.v)
 
     liEl.appendChild(document.createTextNode(' '))
 

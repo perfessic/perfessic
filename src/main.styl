@@ -101,7 +101,23 @@ header
     margin 0
     padding 0
     li
+      position relative
       list-style none
       line-height 1.5
-      strong
+      &:before
+        display none
+        content ''
+        position absolute
+        left -1rem
+        top 0.4rem
+        width 0.4rem
+        border-width 0.4rem 0 0.4rem 0.4rem
+        border-color transparent transparent transparent #BE1818
+        border-style solid
+      &[v]:before
+        display block
+      .no, strong
+        font-weight bold
         font-family $boldFont
+      .no
+        cursor pointer
